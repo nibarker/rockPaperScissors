@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <h1>Let's Play Rock, Paper, Scissors</h1>
+    <p>Please choose which one you would like to play:</p>
+    <div id="buttons">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
+    </div>
+    <div id="gameOutput">
+      <p id="roundResults"></p>
+      <p id="userScore"></p>
+      <p id="computerScore"></p>
+    </div>
+    <div id="resetGame">
+      <button id="reset">Reset Game</button>
+    </div>
+
+  <script>
+    // JavaScript code goes Here
+    let computerScore = 0;
+    let userScore = 0;
+    let rock = document.querySelector('#rock');
+    rock.addEventListener('click', () => {
+      playRound(0);
+    });
+
+    let paper = document.querySelector('#paper');
+    paper.addEventListener('click', () => {
+      playRound(1);
+    });
+
+    let scissors = document.querySelector('#scissors');
+    scissors.addEventListener('click', () => {
+      playRound(2);
+    });
+
+    let reset = document.querySelector('#reset');
+    reset.addEventListener('click', () => {
+      resetGame();
+    })
+
+    let gameOutput = document.querySelector('#roundResults');
+    let userScoreOutput = document.querySelector('#userScore');
+    let computerScoreOutput = document.querySelector('#computerScore');
+
+    function getRandomInt(max) {
+      const randomNumber = Math.floor(Math.random() * Math.floor(max));
+      return randomNumber;
+    }
+
+    function computerPlay() {
+      const random = getRandomInt(3);
+
+      return random;
+    }
+
+    function playRound(userChoice) {
+      const computerSelection = computerPlay();
+
+      if (userChoice == computerSelection) {
+        gameOutput.textContent = "It's a tie! No score recorded this round.";
+        userScoreOutput.textContent = "Your Score: " + userScore;
+        computerScoreOutput.textContent = "Computer Score: " + computerScore;
+      } else if (userChoice == 0 && computerSelection == 2) {
+          userScore++;
+          gameOutput.textContent = "Rock beats Scissors! You win this round!";
+          userScoreOutput.textContent = "Your Score: " + userScore;
+          computerScoreOutput.textContent = "Computer Score: " + computerScore;
+      } else if (userChoice == 1 && computerSelection == 0) {
+          userScore++;
+          gameOutput.textContent = "Paper beats Rock! You win this round!";
+          userScoreOutput.textContent = "Your Score: " + userScore;
+          computerScoreOutput.textContent = "Computer Score: " + computerScore;
+      } else if (userChoice == 2 && computerSelection == 1) {
+          userScore++;
+          gameOutput.textContent = "Scissors beats Paper! You win this round!";
+          userScoreOutput.textContent = "Your Score: " + userScore;
+          computerScoreOutput.textContent = "Computer Score: " + computerScore;
+      } else if (computerSelection == 0 && userChoice == 2) {
+          computerScore++;
+          gameOutput.textContent = "Rock beats Scissors! You lost this round.";
+          userScoreOutput.textContent = "Your Score: " + userScore;
+          computerScoreOutput.textContent = "Computer Score: " + computerScore;
+      } else if (computerSelection == 1 && userChoice == 0) {
+          computerScore++;
+          gameOutput.textContent = "Paper beats Rock! You lost this round.";
+          userScoreOutput.textContent = "Your Score: " + userScore;
+          computerScoreOutput.textContent = "Computer Score: " + computerScore;
+      } else if (computerSelection == 2 && userChoice == 1) {
+          computerScore++;
+          gameOutput.textContent = "Scissors beats Paper! You lost this round.";
+          userScoreOutput.textContent = "Your Score: " + userScore;
+          computerScoreOutput.textContent = "Computer Score" + computerScore;
+      } else {
+          console.log("Something went wrong");
+      }
+
+      if (userScore == 5 || computerScore == 5) {
+        endGame();
+      }
+
+      return userScore, computerScore;
+    } 
+
+    function endGame() {
+      if (userScore > computerScore) {
+            gameOutput.textContent = "GAME OVER!!! You win!";
+      } else if (userScore < computerScore) {
+            gameOutput.textContent = "GAME OVER!!! You lost!";
+      } else {
+            gameOutput.textContent = "GAME OVER!!! It's a tie!";
+      }
+
+    }
+
+    function resetGame() {
+      userScore = 0;
+      computerScore = 0;
+      gameOutput.textContent = "";
+      userScore.textContent = "";
+      computerScore.textContent = "";
+    }
+  </script>
+</body>
+</html>
